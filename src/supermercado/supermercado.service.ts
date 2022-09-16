@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BusinessError, BusinessLogicException } from 'src/shared/errors/business-errors';
+import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
 import { Repository } from 'typeorm';
 import { SupermercadoEntity } from './supermercado.entity';
 
@@ -24,6 +24,9 @@ export class SupermercadoService {
     }
 
     async create(supermercado: SupermercadoEntity): Promise<SupermercadoEntity> {
+        if (supermercado.nombre.length <= 10) {
+            throw new BusinessLogicException("No se puede crear un supermercado con un nombre de menos de 10 caracteres", BusinessError.BAD_REQUEST);
+        }
         return await this.superRepository.save(supermercado);
     }
 
@@ -31,6 +34,9 @@ export class SupermercadoService {
         const persistedSupermercado: SupermercadoEntity = await this.superRepository.findOne({where:{id}});
         if (!persistedSupermercado) {
             throw new BusinessLogicException("El supermercado con el id no fue encontrado", BusinessError.NOT_FOUND);
+        }
+        if (supermercado.nombre.length <= 10) {
+            throw new BusinessLogicException("No se puede crear un supermercado con un nombre de menos de 10 caracteres", BusinessError.BAD_REQUEST);
         }
         supermercado.id = id;
         return await this.superRepository.save(supermercado);

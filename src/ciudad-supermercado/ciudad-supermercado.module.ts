@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CiudadEntity } from 'src/ciudad/ciudad.entity';
-import { SupermercadoEntity } from 'src/supermercado/supermercado.entity';
+import { CiudadEntity } from '../ciudad/ciudad.entity';
+import { SupermercadoEntity } from '../supermercado/supermercado.entity';
 import { CiudadSupermercadoService } from './ciudad-supermercado.service';
 
 @Module({
