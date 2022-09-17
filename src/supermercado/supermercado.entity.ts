@@ -9,10 +9,10 @@ export class SupermercadoEntity {
     @Column()
     nombre: string;
 
-    @Column()
+    @Column({type: "decimal"})
     longitud: number;
 
-    @Column()
+    @Column({type: "decimal"})
     latitud: number;
 
     @Column()
